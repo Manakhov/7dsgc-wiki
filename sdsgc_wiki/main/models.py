@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Heroes(models.Model):
@@ -20,6 +21,7 @@ class Heroes(models.Model):
                                                             ('Человек', 'Человек')
                                                             ])
     uniqueness = models.TextField('Уникальность')
+    date_change = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name

@@ -10,7 +10,7 @@
         <div class="alert alert-warning mt-2">
             <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
             <h3>{{ hero.name }}</h3>
-            <p>{{ hero.rank }}, {{ hero.race }}</p>
+            <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
         </div>
     {% endfor %}
     <h1>Герои SR ранга</h1>
@@ -18,7 +18,7 @@
         <div class="alert alert-warning mt-2">
             <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
             <h3>{{ hero.name }}</h3>
-            <p>{{ hero.rank }}, {{ hero.race }}</p>
+            <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
         </div>
     {% endfor %}
     <h1>Герои R ранга</h1>
@@ -26,7 +26,7 @@
         <div class="alert alert-warning mt-2">
             <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
             <h3>{{ hero.name }}</h3>
-            <p>{{ hero.rank }}, {{ hero.race }}</p>
+            <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
         </div>
     {% endfor %}
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from .models import Heroes
 from .forms import HeroesForm
 
@@ -23,6 +24,7 @@ def new_hero(request):
     if request.method == 'POST':
         form = HeroesForm(request.POST)
         if form.is_valid():
+            form.date_change = timezone.now()
             form.save()
             return redirect('all_heroes')
     form = HeroesForm()
