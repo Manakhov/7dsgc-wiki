@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Seven deadly sins: grand cross
+{% endblock %}
+
+{% block body %}
+    <h1>Новый герой</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.name }}<br>
+        {{ form.rank }}<br>
+        {{ form.color }}<br>
+        {{ form.race }}<br>
+        {{ form.uniqueness }}<br>
+        <button type="submit" class="btn btn-success">Создать</button>
+    </form>
+{% endblock %}

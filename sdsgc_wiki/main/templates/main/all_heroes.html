@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block body %}
+    <h1>Герои SSR ранга</h1>
+    {% for hero in heroes_SSR %}
+        <div class="alert alert-warning mt-2">
+            <h3>{{ hero.name }}</h3>
+            <p>{{ hero.rank }}, {{ hero.race }}</p>
+        </div>
+    {% endfor %}
+    <h1>Герои SR ранга</h1>
+    {% for hero in heroes_SR %}
+        <div class="alert alert-warning mt-2">
+            <h3>{{ hero.name }}</h3>
+            <p>{{ hero.rank }}, {{ hero.race }}</p>
+        </div>
+    {% endfor %}
+    <h1>Герои R ранга</h1>
+    {% for hero in heroes_R %}
+        <div class="alert alert-warning mt-2">
+            <h3>{{ hero.name }}</h3>
+            <p>{{ hero.rank }}, {{ hero.race }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
