@@ -8,6 +8,7 @@
     <h1>Герои SSR ранга</h1>
     {% for hero in heroes_SSR %}
         <div class="alert alert-warning mt-2">
+            <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
             <h3>{{ hero.name }}</h3>
             <p>{{ hero.rank }}, {{ hero.race }}</p>
         </div>
@@ -15,6 +16,7 @@
     <h1>Герои SR ранга</h1>
     {% for hero in heroes_SR %}
         <div class="alert alert-warning mt-2">
+            <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
             <h3>{{ hero.name }}</h3>
             <p>{{ hero.rank }}, {{ hero.race }}</p>
         </div>
@@ -22,6 +24,7 @@
     <h1>Герои R ранга</h1>
     {% for hero in heroes_R %}
         <div class="alert alert-warning mt-2">
+            <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
             <h3>{{ hero.name }}</h3>
             <p>{{ hero.rank }}, {{ hero.race }}</p>
         </div>

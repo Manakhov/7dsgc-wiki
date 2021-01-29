@@ -9,6 +9,7 @@ Seven deadly sins: grand cross
     <form method="post">
         {% csrf_token %}
         {{ form.name }}<br>
+        {{ form.icon }}<br>
         {{ form.rank }}<br>
         {{ form.color }}<br>
         {{ form.race }}<br>

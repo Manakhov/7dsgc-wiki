@@ -11,7 +11,7 @@ def all_heroes(request):
                'heroes_R': heroes_R,
                'heroes_SR': heroes_SR,
                'heroes_SSR': heroes_SSR,
-    }
+               }
     return render(request, 'main/all_heroes.html', context)
 
 
@@ -26,7 +26,6 @@ def new_hero(request):
             form.save()
             return redirect('all_heroes')
     form = HeroesForm()
-    context = {
-        'form': form,
-    }
+    context = {'form': form
+               }
     return render(request, 'main/new_hero.html', context)
