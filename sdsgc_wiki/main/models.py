@@ -4,16 +4,19 @@ from django.utils import timezone
 
 class Heroes(models.Model):
     name = models.CharField('Имя', max_length=50)
-    icon = models.CharField('Иконка', max_length=200,)
-    rank = models.CharField('Ранг', max_length=3, choices=[('SSR', 'SSR'),
+    icon = models.URLField('Иконка')
+    rank = models.CharField('Ранг', max_length=3, choices=[(None, 'Выберите ранг'),
+                                                           ('SSR', 'SSR'),
                                                            ('SR', 'SR'),
                                                            ('R', 'R')
                                                            ])
-    color = models.CharField('Цвет', max_length=7, choices=[('Зеленый', 'Зеленый'),
+    color = models.CharField('Цвет', max_length=7, choices=[(None, 'Выберите цвет'),
+                                                            ('Зеленый', 'Зеленый'),
                                                             ('Красный', 'Красный'),
                                                             ('Синий', 'Синий')
                                                             ])
-    race = models.CharField('Раса', max_length=10, choices=[('Богиня', 'Богиня'),
+    race = models.CharField('Раса', max_length=10, choices=[(None, 'Выберите расу'),
+                                                            ('Богиня', 'Богиня'),
                                                             ('Великан', 'Великан'),
                                                             ('Демон', 'Демон'),
                                                             ('Неизвестно', 'Неизвестно'),
