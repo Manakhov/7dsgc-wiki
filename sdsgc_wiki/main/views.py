@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Heroes
-from .forms import HeroesForm
+from .forms import HeroesForm, PropertiesForm
 
 
 def all_heroes(request):
@@ -21,13 +21,20 @@ def one_hero(request):
 
 
 def new_hero(request):
-    if request.method == 'POST':
-        form = HeroesForm(request.POST)
-        if form.is_valid():
-            form.date_change = timezone.now()
-            form.save()
+    if 'add_hero' in request.POST:
+        heroes_form = HeroesForm(request.POST)
+        if heroes_form.is_valid():
+            heroes_form.date_change = timezone.now()
+            heroes_form.save()
             return redirect('all_heroes')
-    form = HeroesForm()
-    context = {'form': form
+    elif 'add_property' in request.POST:
+        properties_form = PropertiesForm(request.POST)
+        if properties_form.is_valid():
+            properties_form.save()
+            return redirect('new_hero')
+    heroes_form = HeroesForm()
+    properties_form = PropertiesForm()
+    context = {'heroes_form': heroes_form,
+               'properties_form': properties_form,
                }
     return render(request, 'main/new_hero.html', context)

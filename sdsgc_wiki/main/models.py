@@ -25,6 +25,7 @@ class Heroes(models.Model):
                                                             ])
     uniqueness = models.TextField('Уникальность')
     date_change = models.DateTimeField(default=timezone.now)
+    properties = models.ManyToManyField('Properties', verbose_name='Свойства')
 
     def __str__(self):
         return self.name
@@ -32,3 +33,14 @@ class Heroes(models.Model):
     class Meta:
         verbose_name = 'Герой'
         verbose_name_plural = 'Герои'
+
+
+class Properties(models.Model):
+    name = models.CharField('Название', max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Свойство'
+        verbose_name_plural = 'Свойства'

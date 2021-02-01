@@ -11,6 +11,9 @@
             <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
             <h3>{{ hero.name }}</h3>
             <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
+            {% for prop in hero.properties.all %}
+                <p>{{ prop.name }}</p>
+            {% endfor %}
         </div>
     {% endfor %}
     <h1>Герои SR ранга</h1>

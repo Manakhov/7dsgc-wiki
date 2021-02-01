@@ -8,12 +8,12 @@ Seven deadly sins: grand cross
     <h1>Новый герой</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.name }}<br>
-        {{ form.icon }}<br>
-        {{ form.rank }}<br>
-        {{ form.color }}<br>
-        {{ form.race }}<br>
-        {{ form.uniqueness }}<br>
-        <button type="submit" class="btn btn-success">Создать</button>
+        {{ heroes_form }}<br>
+        <button type="submit" name="add_hero" class="btn btn-success">Создать героя</button><br>
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        {{ properties_form.name }}<br>
+        <button type="submit" name="add_property" class="btn btn-success">Добавить свойство</button><br>
     </form>
 {% endblock %}
