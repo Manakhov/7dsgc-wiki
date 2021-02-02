@@ -9,16 +9,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Manakhov</h5>
-      <nav class="my-2 my-md-0 mr-md-3">
-          <a class="p-2 text-dark" href="{% url 'all_heroes' %}">Heroes</a>
-          <a class="p-2 text-dark" href="{% url 'one_hero' %}">Hero</a>
-          <a class="p-2 text-dark" href="{% url 'new_hero' %}">New</a>
-      </nav>
-    </div>
-    <div class="container">
-        {% block body%}{% endblock%}
+    <div class="container-fluid bg-dark text-white min-vh-100 p-0">
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 text-white shadow-sm" style="background-color: #212529">
+          <h5 class="my-0 mr-md-auto font-weight-normal">Manakhov project</h5>
+          <nav class="my-2 my-md-0 mr-md-3">
+              <a class="p-2 text-white" href="{% url 'all_heroes' %}">Heroes</a>
+              <a class="p-2 text-white" href="{% url 'one_hero' %}">Hero</a>
+              <a class="p-2 text-white" href="{% url 'new_hero' %}">New</a>
+          </nav>
+        </div><br>
+        <div class="container-fluid">
+            {% block body%}{% endblock%}
+        </div>
     </div>
 </body>
 </html>

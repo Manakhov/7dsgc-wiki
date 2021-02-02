@@ -1,19 +1,44 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-Seven deadly sins: grand cross
+{{ title }}
 {% endblock %}
 
 {% block body %}
-    <h1>Новый герой</h1>
+    <h2 class="font-weight-normal">Новый герой</h2>
     <form method="post">
         {% csrf_token %}
-        {{ heroes_form }}<br>
-        <button type="submit" name="add_hero" class="btn btn-success">Создать героя</button><br>
+        <div class="row">
+            <div class="col-md-2">
+                {{ heroes_form.name }}<br>
+                {{ heroes_form.rank }}<br>
+                {{ heroes_form.color }}<br>
+                {{ heroes_form.race }}<br>
+                <button type="submit" name="add_hero" class="btn btn-success btn-block">Создать героя</button><br>
+            </div>
+            <div class="col-md-5">
+                {{ heroes_form.icon }}<br>
+                {{ heroes_form.uniqueness }}<br>
+            </div>
+            <div class="col-md-5">
+                {% for prop in heroes_form.properties %}
+                    <label class="btn btn-secondary">{{ prop }}</label>
+                {% endfor %}
+                <br>
+            </div>
+        </div>
     </form>
-    <form method="post">
-        {% csrf_token %}
-        {{ properties_form.name }}<br>
-        <button type="submit" name="add_property" class="btn btn-success">Добавить свойство</button><br>
-    </form>
+    <div class="row justify-content-end">
+        <div class="col-md-5">
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    {{ properties_form.name }}
+                    <div class="input-group-append">
+                        <button type="submit" name="add_property" class="btn btn-secondary">Добавить свойство</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

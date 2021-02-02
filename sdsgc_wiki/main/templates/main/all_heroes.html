@@ -5,6 +5,15 @@
 {% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-3" style="background-color: #ff9999">Left</div>
+        <div class="col-md-6" style="background-color: #99CCFF">Middle</div>
+        <div class="col-md-3" style="background-color: #00CC99">Right</div>
+    </div>
+{% endblock %}
+
+
+<!--
     <h1>Герои SSR ранга</h1>
     {% for hero in heroes_SSR %}
         <div class="alert alert-warning mt-2">
@@ -32,4 +41,3 @@
             <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
         </div>
     {% endfor %}
-{% endblock %}

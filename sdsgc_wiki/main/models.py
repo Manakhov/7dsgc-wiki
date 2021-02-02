@@ -36,7 +36,7 @@ class Heroes(models.Model):
 
 
 class Properties(models.Model):
-    name = models.CharField('Название', max_length=50)
+    name = models.CharField('Название', max_length=50, unique=True)
 
     def __str__(self):
         return self.name
