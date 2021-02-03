@@ -9,11 +9,15 @@ def all_heroes(request):
     heroes_SR = Heroes.objects.filter(rank='SR').order_by('name')
     heroes_SSR = Heroes.objects.filter(rank='SSR').order_by('name')
     properties = Properties.objects.order_by('name')
+    color_choices = ['Красный', 'Зеленый', 'Синий']
+    race_choices = ['Демон', 'Великан', 'Человек', 'Фея', 'Богиня', 'Неизвестно']
     context = {'title': 'All heroes from 7dsgc',
                'heroes_R': heroes_R,
                'heroes_SR': heroes_SR,
                'heroes_SSR': heroes_SSR,
-               'properties': properties
+               'properties': properties,
+               'color_choices': color_choices,
+               'race_choices': race_choices
                }
     return render(request, 'main/all_heroes.html', context)
 

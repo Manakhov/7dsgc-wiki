@@ -6,9 +6,66 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-md-3" style="background-color: #ff9999">Left</div>
-        <div class="col-md-6" style="background-color: #99CCFF">Middle</div>
-        <div class="col-md-3" style="background-color: #00CC99">Right</div>
+        <div class="col-md-3">
+            <h5 class="font-weight-normal text-center">Цвет</h5>
+            {% for color in color_choices %}
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input class="custom-control-input" type="checkbox"  id="{{ color }}">
+                    <label class="custom-control-label" for="{{ color }}">
+                        {{ color }}
+                    </label>
+                </div>
+            {% endfor %}
+            <h5 class="font-weight-normal text-center">Раса</h5>
+            {% for race in race_choices %}
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input class="custom-control-input" type="checkbox"  id="{{ race }}">
+                    <label class="custom-control-label" for="{{ race }}">
+                        {{ race }}
+                    </label>
+                </div>
+            {% endfor %}
+            <h5 class="font-weight-normal text-center">Свойства</h5>
+            {% for prop in properties %}
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input class="custom-control-input" type="checkbox"  id="{{ prop.name }}">
+                    <label class="custom-control-label" for="{{ prop.name }}">
+                        {{ prop.name }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-6 p-0">
+            {% for hero in heroes_SSR %}
+                <img src="{{ hero.icon }}" width="53px" height="53px">
+            {% endfor %}
+            <hr>
+            {% for hero in heroes_SR %}
+                <img src="{{ hero.icon }}" width="53px" height="53px">
+            {% endfor %}
+            <hr>
+            {% for hero in heroes_R %}
+                <img src="{{ hero.icon }}" width="53px" height="53px">
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <input class="form-control" type="text" placeholder="Поиск по уникальности">
+            <br>
+            <div style="height: calc(100vh - 10rem); overflow: auto">
+                {% for hero in heroes_SSR %}
+                    <img src="{{ hero.icon }}" width="53px" height="53px" align="left">
+                    <small>{{ hero.uniqueness }}</small><hr>
+                {% endfor %}
+                {% for hero in heroes_SR %}
+                    <img src="{{ hero.icon }}" width="53px" height="53px" align="left">
+                    <small>{{ hero.uniqueness }}</small><hr>
+                {% endfor %}
+                {% for hero in heroes_R %}
+                    <img src="{{ hero.icon }}" width="53px" height="53px" align="left">
+                    <small>{{ hero.uniqueness }}</small><hr>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 

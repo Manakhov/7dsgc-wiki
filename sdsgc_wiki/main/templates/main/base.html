@@ -7,16 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title%}{% endblock%}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="https://static.wikia.nocookie.net/7dsgc_mobile_game/images/6/61/Icon_stamp_escanor_10.png/revision/latest/scale-to-width-down/256?cb=20200607194136">
 </head>
 <body>
     <div class="container-fluid bg-dark text-white min-vh-100 p-0">
         <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 text-white shadow-sm" style="background-color: #212529">
-          <h5 class="my-0 mr-md-auto font-weight-normal">Manakhov project</h5>
-          <nav class="my-2 my-md-0 mr-md-3">
-              <a class="p-2 text-white" href="{% url 'all_heroes' %}">Heroes</a>
-              <a class="p-2 text-white" href="{% url 'one_hero' %}">Hero</a>
-              <a class="p-2 text-white" href="{% url 'new_hero' %}">New</a>
-          </nav>
+            <h5 class="my-0 mr-md-auto font-weight-normal">Manakhov project</h5>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-white" href="{% url 'all_heroes' %}">Heroes</a>
+                <a class="p-2 text-white" href="{% url 'one_hero' %}">Hero</a>
+                <a class="p-2 text-white" href="{% url 'new_hero' %}">New</a>
+            </nav>
         </div><br>
         <div class="container-fluid">
             {% block body%}{% endblock%}
