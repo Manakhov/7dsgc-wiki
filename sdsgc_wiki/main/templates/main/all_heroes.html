@@ -8,31 +8,22 @@
     <div class="row">
         <div class="col-md-3">
             <h5 class="font-weight-normal text-center">Цвет</h5>
-            {% for color in color_choices %}
-                <div class="custom-control custom-checkbox custom-control-inline">
-                    <input class="custom-control-input" type="checkbox"  id="{{ color }}">
-                    <label class="custom-control-label" for="{{ color }}">
-                        {{ color }}
+                {% for color in color_choices %}
+                    <label class="btn btn-secondary">
+                        <input type="checkbox" name="color" value="{{ color }}"> <small>{{ color }}</small>
                     </label>
-                </div>
-            {% endfor %}
+                {% endfor %}
             <h5 class="font-weight-normal text-center">Раса</h5>
             {% for race in race_choices %}
-                <div class="custom-control custom-checkbox custom-control-inline">
-                    <input class="custom-control-input" type="checkbox"  id="{{ race }}">
-                    <label class="custom-control-label" for="{{ race }}">
-                        {{ race }}
-                    </label>
-                </div>
+                <label class="btn btn-secondary">
+                    <input type="checkbox"> <small>{{ race }}</small>
+                </label>
             {% endfor %}
             <h5 class="font-weight-normal text-center">Свойства</h5>
             {% for prop in properties %}
-                <div class="custom-control custom-checkbox custom-control-inline">
-                    <input class="custom-control-input" type="checkbox"  id="{{ prop.name }}">
-                    <label class="custom-control-label" for="{{ prop.name }}">
-                        {{ prop.name }}
-                    </label>
-                </div>
+                <label class="btn btn-secondary">
+                    <input type="checkbox"> <small>{{ prop.name }}</small>
+                </label>
             {% endfor %}
         </div>
         <div class="col-md-6 p-0">
@@ -68,33 +59,3 @@
         </div>
     </div>
 {% endblock %}
-
-
-<!--
-    <h1>Герои SSR ранга</h1>
-    {% for hero in heroes_SSR %}
-        <div class="alert alert-warning mt-2">
-            <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
-            <h3>{{ hero.name }}</h3>
-            <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
-            {% for prop in hero.properties.all %}
-                <p>{{ prop.name }}</p>
-            {% endfor %}
-        </div>
-    {% endfor %}
-    <h1>Герои SR ранга</h1>
-    {% for hero in heroes_SR %}
-        <div class="alert alert-warning mt-2">
-            <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
-            <h3>{{ hero.name }}</h3>
-            <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
-        </div>
-    {% endfor %}
-    <h1>Герои R ранга</h1>
-    {% for hero in heroes_R %}
-        <div class="alert alert-warning mt-2">
-            <img src="{{ hero.icon }}" width="65px" height="65px" align="left">
-            <h3>{{ hero.name }}</h3>
-            <p>{{ hero.rank }}, {{ hero.race }}, {{ hero.date_change }}</p>
-        </div>
-    {% endfor %}
