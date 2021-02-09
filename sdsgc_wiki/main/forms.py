@@ -1,5 +1,5 @@
 from .models import Heroes, Properties
-from django.forms import ModelForm, Form, TextInput, Textarea, Select, CheckboxSelectMultiple, MultipleChoiceField
+from django.forms import ModelForm, Form, TextInput, Textarea, Select, CheckboxSelectMultiple, CharField, MultipleChoiceField
 
 
 class HeroesForm(ModelForm):
@@ -63,16 +63,14 @@ class FilterForm(Form, ModelForm):
                                                                        ('Фея', 'Фея'),
                                                                        ('Человек', 'Человек')
                                                                        ])
+    uniqueness = CharField(required=False, widget=TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Уникальность'
+    }))
 
     class Meta:
         model = Heroes
-        fields = ['uniqueness',
-                  'properties',
-                  ]
+        fields = ['properties']
         widgets = {
-            'uniqueness': Textarea(attrs={
-                'class': 'form-control',
-                'placeholder': 'Фильтр по уникальности'
-            }),
             'properties': CheckboxSelectMultiple()
         }

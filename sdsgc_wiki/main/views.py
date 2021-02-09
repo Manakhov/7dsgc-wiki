@@ -5,24 +5,24 @@ from .forms import HeroesForm, PropertiesForm, FilterForm
 
 
 def all_heroes(request):
-    cleaned_data = []
-    selected_properties = []
-    errors = ''
     heroes = Heroes.objects.order_by('name')
     filter_form = FilterForm()
     if 'add_filter' in request.POST:
         filter_form = FilterForm(request.POST)
-        errors = filter_form.errors
-        cleaned_data = filter_form.cleaned_data
-        for key in cleaned_data.keys():
+        errors = filter_form.errors           # does not work without this line
+        filter_cleaned_data = filter_form.cleaned_data
+        for key in filter_cleaned_data.keys():
             if key == 'color':
-                heroes = heroes.filter(color__in=cleaned_data[key])
+                heroes = heroes.filter(color__in=filter_cleaned_data[key])
             if key == 'race':
-                heroes = heroes.filter(race__in=cleaned_data[key])
+                heroes = heroes.filter(race__in=filter_cleaned_data[key])
             if key == 'properties':
-                for prop in cleaned_data[key]:
+                selected_properties = []
+                for prop in filter_cleaned_data[key]:
                     selected_properties.append(prop.name)
-                # heroes = heroes.filter(properties__in=selected_properties)
+                heroes = heroes.filter(properties__name__in=selected_properties)
+            if key == 'uniqueness':
+                heroes = heroes.filter(uniqueness__contains=filter_cleaned_data[key])
     heroes_R = heroes.filter(rank='R')
     heroes_SR = heroes.filter(rank='SR')
     heroes_SSR = heroes.filter(rank='SSR')
@@ -31,9 +31,6 @@ def all_heroes(request):
                'heroes_R': heroes_R,
                'heroes_SR': heroes_SR,
                'heroes_SSR': heroes_SSR,
-               'cleaned_data': cleaned_data,
-               'errors': errors,
-               'selected_properties': selected_properties,
                }
     return render(request, 'main/all_heroes.html', context)
 
