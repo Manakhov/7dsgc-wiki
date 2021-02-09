@@ -7,28 +7,32 @@
 {% block body %}
     <div class="row">
         <div class="col-md-3">
-            <h5 class="font-weight-normal text-center">Цвет</h5>
-                {% for color in color_choices %}
-                    <label class="btn btn-secondary">
-                        <input type="checkbox" name="color" value="{{ color }}"> <small>{{ color }}</small>
-                    </label>
+            <form method="post">
+                {% csrf_token %}
+                {{ cleaned_data }}
+                {{ errors }}
+                {{ selected_properties }}
+                <button type="submit" name="add_filter" class="btn btn-secondary btn-block">Применить фильтр</button>
+                <h5 class="font-weight-normal text-center">Цвет</h5>
+                {% for color in filter_form.color %}
+                    <label class="btn btn-secondary"><small>{{ color }}</small></label>
                 {% endfor %}
-            <h5 class="font-weight-normal text-center">Раса</h5>
-            {% for race in race_choices %}
-                <label class="btn btn-secondary">
-                    <input type="checkbox"> <small>{{ race }}</small>
-                </label>
-            {% endfor %}
-            <h5 class="font-weight-normal text-center">Свойства</h5>
-            {% for prop in properties %}
-                <label class="btn btn-secondary">
-                    <input type="checkbox"> <small>{{ prop.name }}</small>
-                </label>
-            {% endfor %}
+                <h5 class="font-weight-normal text-center">Раса</h5>
+                {% for race in filter_form.race %}
+                    <label class="btn btn-secondary"><small>{{ race }}</small></label>
+                {% endfor %}
+                <h5 class="font-weight-normal text-center">Свойства</h5>
+                {% for prop in filter_form.properties %}
+                    <label class="btn btn-secondary"><small>{{ prop }}</small></label>
+                {% endfor %}
+            </form>
         </div>
         <div class="col-md-6 p-0">
             {% for hero in heroes_SSR %}
                 <img src="{{ hero.icon }}" width="53px" height="53px">
+<!--                {% for prop in hero.properties.all %}-->
+<!--                    <p>{{ prop.name }}</p>-->
+<!--                {% endfor %}-->
             {% endfor %}
             <hr>
             {% for hero in heroes_SR %}
@@ -40,7 +44,7 @@
             {% endfor %}
         </div>
         <div class="col-md-3">
-            <input class="form-control" type="text" placeholder="Поиск по уникальности">
+            <input class="form-control" type="text" placeholder="Фильтр по уникальности">
             <br>
             <div style="height: calc(100vh - 10rem); overflow: auto">
                 {% for hero in heroes_SSR %}

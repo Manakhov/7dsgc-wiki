@@ -1,5 +1,5 @@
 from .models import Heroes, Properties
-from django.forms import ModelForm, TextInput, Textarea, Select, CheckboxSelectMultiple
+from django.forms import ModelForm, Form, TextInput, Textarea, Select, CheckboxSelectMultiple, MultipleChoiceField
 
 
 class HeroesForm(ModelForm):
@@ -48,4 +48,31 @@ class PropertiesForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Введите свойство'
             })
+        }
+
+
+class FilterForm(Form, ModelForm):
+    color = MultipleChoiceField(widget=CheckboxSelectMultiple, choices=[('Зеленый', 'Зеленый'),
+                                                                        ('Красный', 'Красный'),
+                                                                        ('Синий', 'Синий')
+                                                                        ])
+    race = MultipleChoiceField(widget=CheckboxSelectMultiple, choices=[('Богиня', 'Богиня'),
+                                                                       ('Великан', 'Великан'),
+                                                                       ('Демон', 'Демон'),
+                                                                       ('Неизвестно', 'Неизвестно'),
+                                                                       ('Фея', 'Фея'),
+                                                                       ('Человек', 'Человек')
+                                                                       ])
+
+    class Meta:
+        model = Heroes
+        fields = ['uniqueness',
+                  'properties',
+                  ]
+        widgets = {
+            'uniqueness': Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Фильтр по уникальности'
+            }),
+            'properties': CheckboxSelectMultiple()
         }

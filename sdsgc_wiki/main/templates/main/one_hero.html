@@ -1,10 +1,12 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-Seven deadly sins: grand cross
+{{ title }}
 {% endblock %}
 
 {% block body %}
-    <h1>Герой</h1>
-    <p>инфа?</p>
+    <p>{{ heroes }}</p>
+    <p>{{ heroes_SSR }}</p>
+    <p>{{ heroes_SR }}</p>
+    <p>{{ heroes_R }}</p>
 {% endblock %}
