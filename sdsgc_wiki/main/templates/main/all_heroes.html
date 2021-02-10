@@ -25,15 +25,15 @@
         </div>
         <div class="col-md-6 p-0">
             {% for hero in heroes_SSR %}
-                <img src="{{ hero.icon }}" width="53px" height="53px">
+                <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px"></a>
             {% endfor %}
             <hr>
             {% for hero in heroes_SR %}
-                <img src="{{ hero.icon }}" width="53px" height="53px">
+                <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px"></a>
             {% endfor %}
             <hr>
             {% for hero in heroes_R %}
-                <img src="{{ hero.icon }}" width="53px" height="53px">
+                <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px"></a>
             {% endfor %}
         </div>
         <div class="col-md-3">
@@ -45,15 +45,15 @@
             </div>
             <div style="height: calc(100vh - 10rem); overflow: auto">
                 {% for hero in heroes_SSR %}
-                    <img src="{{ hero.icon }}" width="53px" height="53px" align="left">
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px" align="left"></a>
                     <small>{{ hero.uniqueness }}</small><hr>
                 {% endfor %}
                 {% for hero in heroes_SR %}
-                    <img src="{{ hero.icon }}" width="53px" height="53px" align="left">
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px" align="left"></a>
                     <small>{{ hero.uniqueness }}</small><hr>
                 {% endfor %}
                 {% for hero in heroes_R %}
-                    <img src="{{ hero.icon }}" width="53px" height="53px" align="left">
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px" align="left"></a>
                     <small>{{ hero.uniqueness }}</small><hr>
                 {% endfor %}
             </div>

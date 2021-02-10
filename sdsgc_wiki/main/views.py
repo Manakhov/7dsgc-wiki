@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Heroes
 from .forms import HeroesForm, PropertiesForm, FilterForm
@@ -35,16 +35,9 @@ def all_heroes(request):
     return render(request, 'main/all_heroes.html', context)
 
 
-def one_hero(request):
-    heroes = Heroes.objects.order_by('name')
-    heroes_R = heroes.filter(rank='R')
-    heroes_SR = heroes.filter(rank='SR')
-    heroes_SSR = heroes.filter(rank='SSR')
-    context = {'title': 'TEST',
-               'heroes': heroes,
-               'heroes_R': heroes_R,
-               'heroes_SR': heroes_SR,
-               'heroes_SSR': heroes_SSR,
+def one_hero(request, pk):
+    hero = get_object_or_404(Heroes, pk=pk)
+    context = {'hero': hero,
                }
     return render(request, 'main/one_hero.html', context)
 
