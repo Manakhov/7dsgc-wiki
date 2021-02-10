@@ -20,7 +20,7 @@ def all_heroes(request):
                 selected_properties = []
                 for prop in filter_cleaned_data[key]:
                     selected_properties.append(prop.name)
-                heroes = heroes.filter(properties__name__in=selected_properties)
+                heroes = heroes.filter(properties__name__in=selected_properties).distinct()
             if key == 'uniqueness':
                 heroes = heroes.filter(uniqueness__contains=filter_cleaned_data[key])
     heroes_R = heroes.filter(rank='R')

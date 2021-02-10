@@ -44,3 +44,4 @@ class Properties(models.Model):
     class Meta:
         verbose_name = 'Свойство'
         verbose_name_plural = 'Свойства'
+        ordering = ['name']
