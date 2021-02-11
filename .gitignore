@@ -1,4 +1,7 @@
+*.pyc
+*~
 .idea
 myvenv
 db.sqlite3
 __pycache__
+sdsgc_wiki/static
