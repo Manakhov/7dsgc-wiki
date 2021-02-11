@@ -3,9 +3,5 @@
 .idea
 myvenv
 db.sqlite3
-<<<<<<< HEAD
 __pycache__
-/static
-=======
-__pycache__
->>>>>>> e3e796932d5a65d566fcb0aa0c52d60c2978e8b3
+sdsgc_wiki/static
