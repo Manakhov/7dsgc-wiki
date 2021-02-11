@@ -25,7 +25,7 @@ class Heroes(models.Model):
                                                             ])
     uniqueness = models.TextField('Уникальность')
     date_change = models.DateTimeField(default=timezone.now)
-    properties = models.ManyToManyField('Properties', verbose_name='Свойства')
+    properties = models.ManyToManyField('Properties', verbose_name='Свойства', blank=True)
 
     def __str__(self):
         return self.name

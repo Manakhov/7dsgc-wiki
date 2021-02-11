@@ -16,7 +16,7 @@ def all_heroes(request):
                 heroes = heroes.filter(color__in=filter_cleaned_data[key])
             if key == 'race':
                 heroes = heroes.filter(race__in=filter_cleaned_data[key])
-            if key == 'properties':
+            if key == 'properties' and filter_cleaned_data[key]:
                 selected_properties = []
                 for prop in filter_cleaned_data[key]:
                     selected_properties.append(prop.name)
