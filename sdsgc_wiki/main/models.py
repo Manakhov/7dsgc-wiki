@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class Heroes(models.Model):
     name = models.CharField('Имя', max_length=50)
-    icon = models.URLField('Иконка')
+    icon = models.URLField('Иконка', unique=True)
     rank = models.CharField('Ранг', max_length=3, choices=[(None, 'Выберите ранг'),
                                                            ('SSR', 'SSR'),
                                                            ('SR', 'SR'),
