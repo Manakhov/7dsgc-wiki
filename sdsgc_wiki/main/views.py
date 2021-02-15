@@ -26,7 +26,7 @@ def all_heroes(request):
     heroes_R = heroes.filter(rank='R')
     heroes_SR = heroes.filter(rank='SR')
     heroes_SSR = heroes.filter(rank='SSR')
-    context = {'title': 'All heroes from 7dsgc',
+    context = {'title': 'All heroes 7ds-gc',
                'filter_form': filter_form,
                'heroes_R': heroes_R,
                'heroes_SR': heroes_SR,
