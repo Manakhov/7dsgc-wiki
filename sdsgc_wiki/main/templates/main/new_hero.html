@@ -6,7 +6,7 @@
 
 {% block body %}
     {% if user.is_authenticated %}
-        <h2 class="font-weight-normal">Новый герой</h2>
+        <h3 class="font-weight-normal">Создание нового героя</h3>
         <form method="post">
             {% csrf_token %}
             <div class="row">
@@ -17,20 +17,20 @@
                     {{ heroes_form.race }}<br>
                     <button type="submit" name="add_hero" class="btn btn-success btn-block">Создать героя</button><br>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     {{ heroes_form.icon }}<br>
                     {{ heroes_form.uniqueness }}<br>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     {% for prop in heroes_form.properties %}
-                        <label class="btn btn-secondary">{{ prop }}</label>
+                        <label class="btn btn-secondary btn-sm">{{ prop }}</label>
                     {% endfor %}
                     <br><br>
                 </div>
             </div>
         </form>
         <div class="row justify-content-end">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <form method="post">
                     {% csrf_token %}
                     <div class="input-group mb-3">

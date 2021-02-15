@@ -46,7 +46,7 @@ class PropertiesForm(ModelForm):
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите свойство'
+                'placeholder': 'Введите новое свойство'
             })
         }
 
