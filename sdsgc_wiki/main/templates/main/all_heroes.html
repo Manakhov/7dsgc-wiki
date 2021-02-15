@@ -9,51 +9,60 @@
     {% csrf_token %}
     <div class="row">
         <div class="col-md-3">
-            <button type="submit" name="add_filter" class="btn btn-secondary btn-block">Применить фильтр</button>
-            <h5 class="font-weight-normal text-center">Цвет</h5>
-            {% for color in filter_form.color %}
-                <label class="btn btn-secondary"><small>{{ color }}</small></label>
-            {% endfor %}
-            <h5 class="font-weight-normal text-center">Раса</h5>
-            {% for race in filter_form.race %}
-                <label class="btn btn-secondary"><small>{{ race }}</small></label>
-            {% endfor %}
-            <h5 class="font-weight-normal text-center">Свойства</h5>
-            {% for prop in filter_form.properties %}
-                <label class="btn btn-secondary"><small>{{ prop }}</small></label>
-            {% endfor %}
+            <button type="submit" name="add_filter" class="btn btn-secondary btn-block btn-sm mb-3">Применить фильтр</button>
+            <div style="height: calc(100vh - 7rem); overflow: auto">
+                <h6 class="font-weight-normal text-center">Цвет</h6>
+                {% for color in filter_form.color %}
+                    <label class="btn btn-secondary btn-sm">{{ color }}</label>
+                {% endfor %}
+                <h6 class="font-weight-normal text-center">Раса</h6>
+                {% for race in filter_form.race %}
+                    <label class="btn btn-secondary btn-sm">{{ race }}</label>
+                {% endfor %}
+                <h6 class="font-weight-normal text-center">Свойства</h6>
+                {% for prop in filter_form.properties %}
+                    <label class="btn btn-secondary btn-sm">{{ prop }}</label>
+                {% endfor %}
+            </div>
         </div>
-        <div class="col-md-6 p-0">
-            {% for hero in heroes_SSR %}
-                <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px"></a>
-            {% endfor %}
-            <hr>
-            {% for hero in heroes_SR %}
-                <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px"></a>
-            {% endfor %}
-            <hr>
-            {% for hero in heroes_R %}
-                <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px"></a>
-            {% endfor %}
+        <div class="col-md-6">
+            {% if heroes_SSR %}
+                {% for hero in heroes_SSR %}
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="m-1" width="50px"></a>
+                {% endfor %}
+                <hr>
+            {% endif %}
+            {% if heroes_SR %}
+                {% for hero in heroes_SR %}
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="m-1" width="50px"></a>
+                {% endfor %}
+                <hr>
+            {% endif %}
+            {% if heroes_R %}
+                {% for hero in heroes_R %}
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="m-1" width="50px"></a>
+                {% endfor %}
+                <hr>
+            {% endif %}
         </div>
         <div class="col-md-3">
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
                 {{ filter_form.uniqueness }}
                 <div class="input-group-append">
                     <button type="submit" name="add_filter" class="btn btn-secondary">Поиск</button>
                 </div>
             </div>
-            <div style="height: calc(100vh - 10rem); overflow: auto">
+            <div style="height: calc(100vh - 7rem); overflow: auto">
                 {% for hero in heroes_SSR %}
-                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px" align="left"></a>
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="p-1" width="48px" align="left"></a>
                     <small>{{ hero.uniqueness }}</small><hr>
                 {% endfor %}
                 {% for hero in heroes_SR %}
-                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px" align="left"></a>
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="p-1" width="48px" align="left"></a>
                     <small>{{ hero.uniqueness }}</small><hr>
                 {% endfor %}
                 {% for hero in heroes_R %}
-                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" width="53px" height="53px" align="left"></a>
+                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="p-1" width="48px" align="left"></a>
                     <small>{{ hero.uniqueness }}</small><hr>
                 {% endfor %}
             </div>

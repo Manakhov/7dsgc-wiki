@@ -16,11 +16,13 @@ class HeroesForm(ModelForm):
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите имя'
+                'placeholder': 'Введите имя',
+                'autocomplete': 'off'
             }),
             'icon': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Добавьте адрес иконки'
+                'placeholder': 'Добавьте адрес иконки',
+                'autocomplete': 'off'
             }),
             'rank': Select(attrs={
                 'class': 'form-control',
@@ -46,7 +48,8 @@ class PropertiesForm(ModelForm):
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите свойство'
+                'placeholder': 'Введите новое свойство',
+                'autocomplete': 'off'
             })
         }
 
@@ -65,7 +68,8 @@ class FilterForm(Form, ModelForm):
                                                                        ])
     uniqueness = CharField(required=False, widget=TextInput(attrs={
         'class': 'form-control',
-        'placeholder': 'Уникальность'
+        'placeholder': 'Уникальность',
+        'autocomplete': 'off'
     }))
 
     class Meta:
