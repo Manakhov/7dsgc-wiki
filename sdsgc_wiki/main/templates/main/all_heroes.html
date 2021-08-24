@@ -26,23 +26,10 @@
             </div>
         </div>
         <div class="col-md-6">
-            {% if heroes_SSR %}
-                {% for hero in heroes_SSR %}
+            {% if heroes %}
+                {% for hero in heroes %}
                     <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="m-1" width="50px"></a>
                 {% endfor %}
-                <hr>
-            {% endif %}
-            {% if heroes_SR %}
-                {% for hero in heroes_SR %}
-                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="m-1" width="50px"></a>
-                {% endfor %}
-                <hr>
-            {% endif %}
-            {% if heroes_R %}
-                {% for hero in heroes_R %}
-                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="m-1" width="50px"></a>
-                {% endfor %}
-                <hr>
             {% endif %}
         </div>
         <div class="col-md-3">
@@ -53,15 +40,7 @@
                 </div>
             </div>
             <div style="height: calc(100vh - 7rem); overflow: auto">
-                {% for hero in heroes_SSR %}
-                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="p-1" width="48px" align="left"></a>
-                    <small>{{ hero.uniqueness }}</small><hr>
-                {% endfor %}
-                {% for hero in heroes_SR %}
-                    <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="p-1" width="48px" align="left"></a>
-                    <small>{{ hero.uniqueness }}</small><hr>
-                {% endfor %}
-                {% for hero in heroes_R %}
+                {% for hero in heroes %}
                     <a href="{% url 'one_hero' pk=hero.pk %}"><img src="{{ hero.icon }}" class="p-1" width="48px" align="left"></a>
                     <small>{{ hero.uniqueness }}</small><hr>
                 {% endfor %}

@@ -5,7 +5,7 @@ from .forms import HeroesForm, PropertiesForm, FilterForm
 
 
 def all_heroes(request):
-    heroes = Heroes.objects.order_by('name')
+    heroes = Heroes.objects.order_by('-rank', 'name')
     filter_form = FilterForm()
     if 'add_filter' in request.POST:
         filter_form = FilterForm(request.POST)
@@ -23,14 +23,9 @@ def all_heroes(request):
                 heroes = heroes.filter(properties__name__in=selected_properties).distinct()
             if key == 'uniqueness':
                 heroes = heroes.filter(uniqueness__contains=filter_cleaned_data[key])
-    heroes_R = heroes.filter(rank='R')
-    heroes_SR = heroes.filter(rank='SR')
-    heroes_SSR = heroes.filter(rank='SSR')
     context = {'title': 'All heroes 7ds-gc',
                'filter_form': filter_form,
-               'heroes_R': heroes_R,
-               'heroes_SR': heroes_SR,
-               'heroes_SSR': heroes_SSR,
+               'heroes': heroes,
                }
     return render(request, 'main/all_heroes.html', context)
 
