@@ -23,7 +23,7 @@ def all_heroes(request):
                 filter_dict['properties__name__in'] = selected_properties
             if key == 'uniqueness':
                 filter_dict['uniqueness__contains'] = filter_cleaned_data[key]
-    heroes = Heroes.objects.filter(**filter_dict).distinct().order_by('-rank', 'name')
+    heroes = Heroes.objects.filter(**filter_dict).order_by('-rank', 'name')
     context = {'title': 'All heroes 7ds-gc',
                'filter_form': filter_form,
                'heroes': heroes,
