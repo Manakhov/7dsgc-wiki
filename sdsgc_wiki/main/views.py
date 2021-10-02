@@ -1,6 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
-from .models import Heroes
+from django.shortcuts import render, redirect
 from .forms import HeroesForm, PropertiesForm, FilterForm
 from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property
 
@@ -27,10 +25,12 @@ def one_hero(request, pk):
 
 def new_hero(request):
     if 'add_hero' in request.POST:
-        if add_hero(request):
+        heroes_form = HeroesForm(request.POST)
+        if add_hero(heroes_form):
             return redirect('all_heroes')
     elif 'add_property' in request.POST:
-        if add_property(request):
+        properties_form = PropertiesForm(request.POST)
+        if add_property(properties_form):
             return redirect('new_hero')
     heroes_form = HeroesForm()
     properties_form = PropertiesForm()
