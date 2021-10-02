@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Heroes
 from .forms import HeroesForm, PropertiesForm, FilterForm
+from .services import get_one_hero
 
 
 def all_heroes(request):
@@ -32,8 +33,7 @@ def all_heroes(request):
 
 
 def one_hero(request, pk):
-    hero = get_object_or_404(Heroes, pk=pk)
-    context = {'hero': hero,
+    context = {'hero': get_one_hero(pk),
                }
     return render(request, 'main/one_hero.html', context)
 
