@@ -24,18 +24,21 @@ def one_hero(request, pk):
 
 
 def new_hero(request):
-    if 'add_hero' in request.POST:
-        heroes_form = HeroesForm(request.POST)
-        if add_hero(heroes_form):
-            return redirect('all_heroes')
-    elif 'add_property' in request.POST:
-        properties_form = PropertiesForm(request.POST)
-        if add_property(properties_form):
-            return redirect('new_hero')
-    heroes_form = HeroesForm()
-    properties_form = PropertiesForm()
-    context = {'title': 'Create new hero',
-               'heroes_form': heroes_form,
-               'properties_form': properties_form,
-               }
-    return render(request, 'main/new_hero.html', context)
+    if request.user.is_authenticated:
+        if 'add_hero' in request.POST:
+            heroes_form = HeroesForm(request.POST)
+            if add_hero(heroes_form):
+                return redirect('all_heroes')
+        elif 'add_property' in request.POST:
+            properties_form = PropertiesForm(request.POST)
+            if add_property(properties_form):
+                return redirect('new_hero')
+        heroes_form = HeroesForm()
+        properties_form = PropertiesForm()
+        context = {'title': 'Create new hero',
+                   'heroes_form': heroes_form,
+                   'properties_form': properties_form,
+                   }
+        return render(request, 'main/new_hero.html', context)
+    else:
+        return render(request, 'main/not_authenticated.html')
