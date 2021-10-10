@@ -18,6 +18,10 @@ def all_heroes(request):
 
 
 def one_hero(request, pk):
+    if 'update_hero' in request.POST:
+        pass
+    elif 'delete_hero' in request.POST:
+        pass
     context = {'hero': get_one_hero(pk),
                }
     return render(request, 'main/one_hero.html', context)

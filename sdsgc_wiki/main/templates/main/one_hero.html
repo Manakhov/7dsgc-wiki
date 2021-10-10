@@ -32,5 +32,12 @@
             </div>
         </div>
         <p class="font-weight-normal text-right">Дата крайнего изменения: {{ hero.date_change }}</p>
+        <div class="row justify-content-end">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="update_hero" class="btn btn-primary">Изменить героя</button>
+                <button type="submit" name="delete_hero" class="btn btn-danger">Удалить героя</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
