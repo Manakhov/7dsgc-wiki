@@ -39,8 +39,11 @@ def get_filtered_heroes(filter_form):
 def add_hero(heroes_form):
     """Adding hero in Heroes database"""
     if heroes_form.is_valid():
-        heroes_form.date_change = timezone_now
-        heroes_form.save()
+        new_heroes_form = heroes_form.save(commit=False)
+        new_heroes_form.date_change = timezone_now()
+        new_heroes_form.save()
+        heroes_form.save_m2m()
+        return True
     else:
         return False
 
