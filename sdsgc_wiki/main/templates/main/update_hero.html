@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block body %}
+<h3 class="font-weight-normal">Обновление героя</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-2">
+                {{ heroes_form.name }}<br>
+                {{ heroes_form.rank }}<br>
+                {{ heroes_form.color }}<br>
+                {{ heroes_form.race }}<br>
+                <button type="submit" name="update_hero" class="btn btn-success btn-block">Обновить героя</button><br>
+            </div>
+            <div class="col-md-4">
+                {{ heroes_form.icon }}<br>
+                {{ heroes_form.uniqueness }}<br>
+            </div>
+            <div class="col-md-6">
+                {% for prop in heroes_form.properties %}
+                    <label class="btn btn-secondary btn-sm">{{ prop }}</label>
+                {% endfor %}
+                <br><br>
+            </div>
+        </div>
+    </form>
+    <div class="row justify-content-end">
+        <div class="col-md-4">
+            <form method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    {{ properties_form.name }}
+                    <div class="input-group-append">
+                        <button type="submit" name="add_property" class="btn btn-secondary">Добавить свойство</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -19,7 +19,7 @@ def all_heroes(request):
 
 def one_hero(request, pk):
     if 'update_hero' in request.POST:
-        pass
+        return redirect('update_hero', pk)
     elif 'delete_hero' in request.POST:
         pass
     context = {'hero': get_one_hero(pk),
@@ -44,5 +44,27 @@ def create_hero(request):
                    'properties_form': properties_form,
                    }
         return render(request, 'main/create_hero.html', context)
+    else:
+        return render(request, 'main/not_authenticated.html')
+
+
+def update_hero(request, pk):
+    if request.user.is_authenticated:
+        hero = get_one_hero(pk)
+        if 'update_hero' in request.POST:
+            heroes_form = HeroesForm(request.POST, instance=hero)
+            if add_hero(heroes_form):
+                return redirect('one_hero', pk)
+        elif 'add_property' in request.POST:
+            properties_form = PropertiesForm(request.POST)
+            if add_property(properties_form):
+                return redirect('update_hero', pk)
+        heroes_form = HeroesForm(instance=hero)
+        properties_form = PropertiesForm()
+        context = {'title': 'Update hero',
+                   'heroes_form': heroes_form,
+                   'properties_form': properties_form,
+                   }
+        return render(request, 'main/update_hero.html', context)
     else:
         return render(request, 'main/not_authenticated.html')
