@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <h5 class="font-weight-normal">{{ hero.name }}</h5>
+                <img src="{{ hero.icon }}" width="100px" class="m-1"><br>
+                <h6 class="font-weight-normal">Ранг: {{ hero.rank }}</h6>
+                <h6 class="font-weight-normal">Цвет: {{ hero.color }}</h6>
+                <h6 class="font-weight-normal">Раса: {{ hero.race }}</h6>
+            </div>
+            <div class="col-md-6"><br>
+                <h6 class="font-weight-normal">Уникальность: </h6>
+                <p class="font-weight-normal">{{ hero.uniqueness }}</p>
+            </div>
+            <div class="col-md-4"><br>
+                <h6 class="font-weight-normal">Свойства: </h6>
+                <p class="font-weight-normal">
+                    {% if hero.properties.all %}
+                        {% for prop in hero.properties.all %}
+                            {{ prop.name }}<br>
+                        {% endfor %}
+                    {% else %}
+                        Отсутствуют
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        <p class="font-weight-normal text-right">Дата крайнего изменения: {{ hero.date_change }}</p>
+        <h3 class="font-weight-normal">Вы уверены, что хотите удалить данного героя?</h3>
+        <form method="get">
+            <button type="submit" name="yes" class="btn btn-danger">Да, удалить</button>
+            <button type="submit" name="no" class="btn btn-primary">Нет, вернуться назад</button>
+        </form>
+    </div>
+{% endblock %}

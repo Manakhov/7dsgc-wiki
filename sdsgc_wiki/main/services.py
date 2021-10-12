@@ -54,3 +54,8 @@ def add_property(properties_form):
         properties_form.save()
     else:
         return False
+
+
+def delete_one_hero(pk):
+    """Deleting hero from Heroes database"""
+    get_object_or_404(Heroes, pk=pk).delete()
