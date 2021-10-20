@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from .forms import HeroesForm, PropertiesForm, FilterForm
 from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property, delete_one_hero
 
@@ -84,3 +85,8 @@ def delete_hero(request, pk):
         return render(request, 'main/delete_hero.html', context)
     else:
         return render(request, 'main/not_authenticated.html')
+
+
+def log_out(request):
+    logout(request)
+    return redirect('all_heroes')

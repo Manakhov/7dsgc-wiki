@@ -17,7 +17,7 @@
                 <a class="p-2 text-white" href="{% url 'all_heroes' %}">Heroes</a>
                 <a class="p-2 text-white" href="{% url 'create_hero' %}">Create</a>
                 {% if user.is_authenticated %}
-                    <a class="p-2 text-white" href="">Log out</a>
+                    <a class="p-2 text-white" href="{% url 'log_out' %}">Log out</a>
                 {% else %}
                     <a class="p-2 text-white" href="">Log in</a>
                 {% endif %}
