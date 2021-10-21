@@ -90,3 +90,11 @@ def delete_hero(request, pk):
 def log_out(request):
     logout(request)
     return redirect('all_heroes')
+
+
+def log_in(request):
+    if request.user.is_authenticated:
+        return redirect('all_heroes')
+    else:
+        context = {'title': 'Log in'}
+        return render(request, 'main/log_in.html', context)

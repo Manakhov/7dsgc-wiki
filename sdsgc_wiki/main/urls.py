@@ -8,4 +8,5 @@ urlpatterns = [
     path('update_hero_<int:pk>', views.update_hero, name='update_hero'),
     path('delete_hero_<int:pk>', views.delete_hero, name='delete_hero'),
     path('log_out', views.log_out, name='log_out'),
+    path('log_in', views.log_in, name='log_in'),
 ]
