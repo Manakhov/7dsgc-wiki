@@ -1,5 +1,6 @@
 from .models import Heroes, Properties
-from django.forms import ModelForm, Form, TextInput, Textarea, Select, CheckboxSelectMultiple, CharField, MultipleChoiceField
+from django.forms import ModelForm, Form, TextInput, Textarea, Select, CheckboxSelectMultiple, CharField,\
+    MultipleChoiceField, PasswordInput
 
 
 class HeroesForm(ModelForm):
@@ -78,3 +79,14 @@ class FilterForm(Form, ModelForm):
         widgets = {
             'properties': CheckboxSelectMultiple()
         }
+
+
+class LoginForm(Form):
+    username = CharField(widget=TextInput(attrs={'class': 'form-control',
+                                                 'placeholder': 'Введите логин',
+                                                 'autocomplete': 'off'
+                                                 }))
+    password = CharField(widget=PasswordInput(attrs={'class': 'form-control',
+                                                     'placeholder': 'Введите пароль',
+                                                     'autocomplete': 'off'
+                                                     }))
