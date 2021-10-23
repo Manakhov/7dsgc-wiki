@@ -103,8 +103,17 @@ def log_in(request):
             if user is not None and user.is_active:
                 login(request, user)
                 return redirect('all_heroes')
-        if 'create_user' in request.POST:
-            pass
+        elif 'create_user' in request.POST:
+            user_form = UserForm(request.POST)
+            if user_form.is_valid():
+                user_cleaned_data = user_form.cleaned_data
+                new_user_form = user_form.save(commit=False)
+                new_user_form.set_password(user_cleaned_data['password'])
+                new_user_form.save()
+                user = authenticate(username=user_cleaned_data['username'], password=user_cleaned_data['password'])
+                if user is not None and user.is_active:
+                    login(request, user)
+                    return redirect('all_heroes')
         user_form = UserForm()
         context = {'title': 'Login',
                    'user_form': user_form,
