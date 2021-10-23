@@ -9,10 +9,10 @@
         <div class="col-md-3">
             <form method="post">
                 {% csrf_token %}
-                {{ login_form.username }}<br>
-                {{ login_form.password }}<br>
+                {{ user_form.username }}<br>
+                {{ user_form.password }}<br>
                 <button type="submit" name="log_in" class="btn btn-success">Войти</button>
-                <button type="submit" name="create_user" class="btn btn-primary">Создать пользователя</button>
+                <button type="submit" name="create_user" class="btn btn-primary">Зарегистрироваться и Войти</button>
             </form>
         </div>
     </div>

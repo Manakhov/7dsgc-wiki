@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
-from .forms import HeroesForm, PropertiesForm, FilterForm, LoginForm
+from .forms import HeroesForm, PropertiesForm, FilterForm, UserForm
 from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property, delete_one_hero
 
 
@@ -97,17 +97,16 @@ def log_in(request):
         return redirect('all_heroes')
     else:
         if 'log_in' in request.POST:
-            login_form = LoginForm(request.POST)
-            if login_form.is_valid():
-                login_cleaned_data = login_form.cleaned_data
-                user = authenticate(username=login_cleaned_data['username'], password=login_cleaned_data['password'])
-                if user is not None and user.is_active:
-                    login(request, user)
-                    return redirect('all_heroes')
+            user_form = UserForm(request.POST)
+            errors = user_form.errors  # does not work without this line
+            user = authenticate(username=request.POST['username'], password=user_form.cleaned_data['password'])
+            if user is not None and user.is_active:
+                login(request, user)
+                return redirect('all_heroes')
         if 'create_user' in request.POST:
             pass
-        login_form = LoginForm()
+        user_form = UserForm()
         context = {'title': 'Login',
-                   'login_form': login_form,
+                   'user_form': user_form,
                    }
         return render(request, 'main/log_in.html', context)
