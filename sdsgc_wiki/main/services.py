@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now as timezone_now
+from django.contrib.auth import login, authenticate
 from .models import Heroes
 
 
@@ -59,3 +60,28 @@ def add_property(properties_form):
 def delete_one_hero(pk):
     """Deleting hero from Heroes database"""
     get_object_or_404(Heroes, pk=pk).delete()
+
+
+def user_login(request, user_form):
+    """Logging user"""
+    errors = user_form.errors  # does not work without this line
+    user_cleaned_data = user_form.cleaned_data
+    if 'username' in user_cleaned_data.keys():
+        user = authenticate(username=user_cleaned_data['username'], password=user_cleaned_data['password'])
+    else:
+        user = authenticate(username=request.POST['username'], password=user_form.cleaned_data['password'])
+    if user is not None and user.is_active:
+        login(request, user)
+        return True
+    return False
+
+
+def add_user(user_form):
+    """Adding user in Users database"""
+    if user_form.is_valid():
+        user_cleaned_data = user_form.cleaned_data
+        new_user_form = user_form.save(commit=False)
+        new_user_form.set_password(user_cleaned_data['password'])
+        new_user_form.save()
+        return True
+    return False

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import logout
 from .forms import HeroesForm, PropertiesForm, FilterForm, UserForm
-from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property, delete_one_hero
+from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property, delete_one_hero, \
+    user_login, add_user
 
 
 def all_heroes(request):
@@ -98,21 +99,12 @@ def log_in(request):
     else:
         if 'log_in' in request.POST:
             user_form = UserForm(request.POST)
-            errors = user_form.errors  # does not work without this line
-            user = authenticate(username=request.POST['username'], password=user_form.cleaned_data['password'])
-            if user is not None and user.is_active:
-                login(request, user)
+            if user_login(request, user_form):
                 return redirect('all_heroes')
         elif 'create_user' in request.POST:
             user_form = UserForm(request.POST)
-            if user_form.is_valid():
-                user_cleaned_data = user_form.cleaned_data
-                new_user_form = user_form.save(commit=False)
-                new_user_form.set_password(user_cleaned_data['password'])
-                new_user_form.save()
-                user = authenticate(username=user_cleaned_data['username'], password=user_cleaned_data['password'])
-                if user is not None and user.is_active:
-                    login(request, user)
+            if add_user(user_form):
+                if user_login(request, user_form):
                     return redirect('all_heroes')
         user_form = UserForm()
         context = {'title': 'Login',
