@@ -5,24 +5,27 @@ from django.utils import timezone
 class Heroes(models.Model):
     name = models.CharField('Имя', max_length=50)
     icon = models.URLField('Иконка', unique=True)
-    rank = models.CharField('Ранг', max_length=3, choices=[(None, 'Выберите ранг'),
-                                                           ('SSR', 'SSR'),
-                                                           ('SR', 'SR'),
-                                                           ('R', 'R')
-                                                           ])
-    color = models.CharField('Цвет', max_length=7, choices=[(None, 'Выберите цвет'),
-                                                            ('Зеленый', 'Зеленый'),
-                                                            ('Красный', 'Красный'),
-                                                            ('Синий', 'Синий')
-                                                            ])
-    race = models.CharField('Раса', max_length=10, choices=[(None, 'Выберите расу'),
-                                                            ('Богиня', 'Богиня'),
-                                                            ('Великан', 'Великан'),
-                                                            ('Демон', 'Демон'),
-                                                            ('Неизвестно', 'Неизвестно'),
-                                                            ('Фея', 'Фея'),
-                                                            ('Человек', 'Человек')
-                                                            ])
+    rank = models.CharField('Ранг', max_length=3, choices=[
+        (None, 'Выберите ранг'),
+        ('SSR', 'SSR'),
+        ('SR', 'SR'),
+        ('R', 'R'),
+    ])
+    color = models.CharField('Цвет', max_length=7, choices=[
+        (None, 'Выберите цвет'),
+        ('Зеленый', 'Зеленый'),
+        ('Красный', 'Красный'),
+        ('Синий', 'Синий'),
+    ])
+    race = models.CharField('Раса', max_length=10, choices=[
+        (None, 'Выберите расу'),
+        ('Богиня', 'Богиня'),
+        ('Великан', 'Великан'),
+        ('Демон', 'Демон'),
+        ('Неизвестно', 'Неизвестно'),
+        ('Фея', 'Фея'),
+        ('Человек', 'Человек'),
+    ])
     uniqueness = models.TextField('Уникальность')
     date_change = models.DateTimeField(default=timezone.now)
     properties = models.ManyToManyField('Properties', verbose_name='Свойства', blank=True)
