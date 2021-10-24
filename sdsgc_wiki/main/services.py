@@ -45,16 +45,26 @@ def add_hero(heroes_form):
         new_heroes_form.save()
         heroes_form.save_m2m()
         return True
-    else:
-        return False
+    return False
 
 
 def add_property(properties_form):
     """Adding property in Properties database"""
     if properties_form.is_valid():
         properties_form.save()
-    else:
-        return False
+        return True
+    return False
+
+
+def add_user(user_form):
+    """Adding user in Users database"""
+    if user_form.is_valid():
+        user_cleaned_data = user_form.cleaned_data
+        new_user_form = user_form.save(commit=False)
+        new_user_form.set_password(user_cleaned_data['password'])
+        new_user_form.save()
+        return True
+    return False
 
 
 def delete_one_hero(pk):
@@ -72,16 +82,5 @@ def user_login(request, user_form):
         user = authenticate(username=request.POST['username'], password=user_form.cleaned_data['password'])
     if user is not None and user.is_active:
         login(request, user)
-        return True
-    return False
-
-
-def add_user(user_form):
-    """Adding user in Users database"""
-    if user_form.is_valid():
-        user_cleaned_data = user_form.cleaned_data
-        new_user_form = user_form.save(commit=False)
-        new_user_form.set_password(user_cleaned_data['password'])
-        new_user_form.save()
         return True
     return False
