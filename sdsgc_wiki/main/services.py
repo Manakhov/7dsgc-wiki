@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now as timezone_now
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate, login, logout
 from .models import Heroes
 
 
@@ -73,7 +73,7 @@ def delete_one_hero(pk):
 
 
 def user_login(request, user_form):
-    """Logging user"""
+    """User logging in"""
     errors = user_form.errors  # does not work without this line
     user_cleaned_data = user_form.cleaned_data
     if 'username' in user_cleaned_data.keys():
@@ -84,3 +84,8 @@ def user_login(request, user_form):
         login(request, user)
         return True
     return False
+
+
+def user_logout(request):
+    """User logging out"""
+    logout(request)

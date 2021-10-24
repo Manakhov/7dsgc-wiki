@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout
 from .forms import HeroesForm, PropertiesForm, FilterForm, UserForm
-from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property, delete_one_hero, \
-    user_login, add_user
+from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property, add_user, \
+    delete_one_hero, user_login, user_logout
 
 
 def all_heroes(request):
@@ -88,11 +87,6 @@ def delete_hero(request, pk):
         return render(request, 'main/not_authenticated.html')
 
 
-def log_out(request):
-    logout(request)
-    return redirect('all_heroes')
-
-
 def log_in(request):
     if request.user.is_authenticated:
         return redirect('all_heroes')
@@ -111,3 +105,8 @@ def log_in(request):
                    'user_form': user_form,
                    }
         return render(request, 'main/log_in.html', context)
+
+
+def log_out(request):
+    user_logout(request)
+    return redirect('all_heroes')
