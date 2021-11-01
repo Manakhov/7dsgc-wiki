@@ -11,10 +11,11 @@ def all_heroes(request):
     else:
         filter_form = FilterForm()
         heroes = get_all_heroes()
-    context = {'title': 'All heroes 7ds-gc',
-               'filter_form': filter_form,
-               'heroes': heroes,
-               }
+    context = {
+        'title': 'All heroes 7ds-gc',
+        'filter_form': filter_form,
+        'heroes': heroes,
+    }
     return render(request, 'main/all_heroes.html', context)
 
 
@@ -23,8 +24,9 @@ def one_hero(request, pk):
         return redirect('update_hero', pk)
     elif 'delete_hero' in request.POST:
         return redirect('delete_hero', pk)
-    context = {'hero': get_one_hero(pk),
-               }
+    context = {
+        'hero': get_one_hero(pk),
+    }
     return render(request, 'main/one_hero.html', context)
 
 
@@ -40,10 +42,11 @@ def create_hero(request):
                 return redirect('create_hero')
         heroes_form = HeroesForm()
         properties_form = PropertiesForm()
-        context = {'title': 'Create new hero',
-                   'heroes_form': heroes_form,
-                   'properties_form': properties_form,
-                   }
+        context = {
+            'title': 'Create new hero',
+            'heroes_form': heroes_form,
+            'properties_form': properties_form,
+        }
         return render(request, 'main/create_hero.html', context)
     else:
         return render(request, 'main/not_authenticated.html')
@@ -62,10 +65,11 @@ def update_hero(request, pk):
                 return redirect('update_hero', pk)
         heroes_form = HeroesForm(instance=hero)
         properties_form = PropertiesForm()
-        context = {'title': 'Update hero',
-                   'heroes_form': heroes_form,
-                   'properties_form': properties_form,
-                   }
+        context = {
+            'title': 'Update hero',
+            'heroes_form': heroes_form,
+            'properties_form': properties_form,
+        }
         return render(request, 'main/update_hero.html', context)
     else:
         return render(request, 'main/not_authenticated.html')
@@ -79,9 +83,10 @@ def delete_hero(request, pk):
         if 'no' in request.GET:
             return redirect('one_hero', pk)
         hero = get_one_hero(pk)
-        context = {'title': 'Delete hero',
-                   'hero': hero,
-                   }
+        context = {
+            'title': 'Delete hero',
+            'hero': hero,
+        }
         return render(request, 'main/delete_hero.html', context)
     else:
         return render(request, 'main/not_authenticated.html')
@@ -101,9 +106,10 @@ def log_in(request):
                 if user_login(request, user_form):
                     return redirect('all_heroes')
         user_form = UserForm()
-        context = {'title': 'Login',
-                   'user_form': user_form,
-                   }
+        context = {
+            'title': 'Login',
+            'user_form': user_form,
+        }
         return render(request, 'main/log_in.html', context)
 
 
