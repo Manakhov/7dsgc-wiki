@@ -31,7 +31,7 @@ def one_hero(request, pk):
 
 
 def create_hero(request):
-    if request.user.is_authenticated:
+    if request.user.is_staff:
         if 'add_hero' in request.POST:
             heroes_form = HeroesForm(request.POST)
             if add_hero(heroes_form):
@@ -53,7 +53,7 @@ def create_hero(request):
 
 
 def update_hero(request, pk):
-    if request.user.is_authenticated:
+    if request.user.is_staff:
         hero = get_one_hero(pk)
         if 'update_hero' in request.POST:
             heroes_form = HeroesForm(request.POST, instance=hero)
@@ -76,7 +76,7 @@ def update_hero(request, pk):
 
 
 def delete_hero(request, pk):
-    if request.user.is_authenticated:
+    if request.user.is_staff:
         if 'yes' in request.GET:
             delete_one_hero(pk)
             return redirect('all_heroes')
