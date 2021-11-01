@@ -1,63 +1,118 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
-from .models import Heroes
-from .forms import HeroesForm, PropertiesForm, FilterForm
+from django.shortcuts import render, redirect
+from .forms import HeroesForm, PropertiesForm, FilterForm, UserForm
+from .services import get_one_hero, get_all_heroes, get_filtered_heroes, add_hero, add_property, add_user, \
+    delete_one_hero, user_login, user_logout
 
 
 def all_heroes(request):
-    heroes = Heroes.objects.order_by('name')
-    filter_form = FilterForm()
     if 'add_filter' in request.POST:
         filter_form = FilterForm(request.POST)
-        errors = filter_form.errors           # does not work without this line
-        filter_cleaned_data = filter_form.cleaned_data
-        for key in filter_cleaned_data.keys():
-            if key == 'color':
-                heroes = heroes.filter(color__in=filter_cleaned_data[key])
-            if key == 'race':
-                heroes = heroes.filter(race__in=filter_cleaned_data[key])
-            if key == 'properties' and filter_cleaned_data[key]:
-                selected_properties = []
-                for prop in filter_cleaned_data[key]:
-                    selected_properties.append(prop.name)
-                heroes = heroes.filter(properties__name__in=selected_properties).distinct()
-            if key == 'uniqueness':
-                heroes = heroes.filter(uniqueness__contains=filter_cleaned_data[key])
-    heroes_R = heroes.filter(rank='R')
-    heroes_SR = heroes.filter(rank='SR')
-    heroes_SSR = heroes.filter(rank='SSR')
-    context = {'title': 'All heroes 7ds-gc',
-               'filter_form': filter_form,
-               'heroes_R': heroes_R,
-               'heroes_SR': heroes_SR,
-               'heroes_SSR': heroes_SSR,
-               }
+        heroes = get_filtered_heroes(filter_form)
+    else:
+        filter_form = FilterForm()
+        heroes = get_all_heroes()
+    context = {
+        'title': 'All heroes 7ds-gc',
+        'filter_form': filter_form,
+        'heroes': heroes,
+    }
     return render(request, 'main/all_heroes.html', context)
 
 
 def one_hero(request, pk):
-    hero = get_object_or_404(Heroes, pk=pk)
-    context = {'hero': hero,
-               }
+    if 'update_hero' in request.POST:
+        return redirect('update_hero', pk)
+    elif 'delete_hero' in request.POST:
+        return redirect('delete_hero', pk)
+    context = {
+        'hero': get_one_hero(pk),
+    }
     return render(request, 'main/one_hero.html', context)
 
 
-def new_hero(request):
-    if 'add_hero' in request.POST:
-        heroes_form = HeroesForm(request.POST)
-        if heroes_form.is_valid():
-            heroes_form.date_change = timezone.now()
-            heroes_form.save()
+def create_hero(request):
+    if request.user.is_staff:
+        if 'add_hero' in request.POST:
+            heroes_form = HeroesForm(request.POST)
+            if add_hero(heroes_form):
+                return redirect('all_heroes')
+        elif 'add_property' in request.POST:
+            properties_form = PropertiesForm(request.POST)
+            if add_property(properties_form):
+                return redirect('create_hero')
+        heroes_form = HeroesForm()
+        properties_form = PropertiesForm()
+        context = {
+            'title': 'Create new hero',
+            'heroes_form': heroes_form,
+            'properties_form': properties_form,
+        }
+        return render(request, 'main/create_hero.html', context)
+    else:
+        return render(request, 'main/not_authenticated.html')
+
+
+def update_hero(request, pk):
+    if request.user.is_staff:
+        hero = get_one_hero(pk)
+        if 'update_hero' in request.POST:
+            heroes_form = HeroesForm(request.POST, instance=hero)
+            if add_hero(heroes_form):
+                return redirect('one_hero', pk)
+        elif 'add_property' in request.POST:
+            properties_form = PropertiesForm(request.POST)
+            if add_property(properties_form):
+                return redirect('update_hero', pk)
+        heroes_form = HeroesForm(instance=hero)
+        properties_form = PropertiesForm()
+        context = {
+            'title': 'Update hero',
+            'heroes_form': heroes_form,
+            'properties_form': properties_form,
+        }
+        return render(request, 'main/update_hero.html', context)
+    else:
+        return render(request, 'main/not_authenticated.html')
+
+
+def delete_hero(request, pk):
+    if request.user.is_staff:
+        if 'yes' in request.GET:
+            delete_one_hero(pk)
             return redirect('all_heroes')
-    elif 'add_property' in request.POST:
-        properties_form = PropertiesForm(request.POST)
-        if properties_form.is_valid():
-            properties_form.save()
-            return redirect('new_hero')
-    heroes_form = HeroesForm()
-    properties_form = PropertiesForm()
-    context = {'title': 'Create new hero',
-               'heroes_form': heroes_form,
-               'properties_form': properties_form,
-               }
-    return render(request, 'main/new_hero.html', context)
+        if 'no' in request.GET:
+            return redirect('one_hero', pk)
+        hero = get_one_hero(pk)
+        context = {
+            'title': 'Delete hero',
+            'hero': hero,
+        }
+        return render(request, 'main/delete_hero.html', context)
+    else:
+        return render(request, 'main/not_authenticated.html')
+
+
+def log_in(request):
+    if request.user.is_authenticated:
+        return redirect('all_heroes')
+    else:
+        if 'log_in' in request.POST:
+            user_form = UserForm(request.POST)
+            if user_login(request, user_form):
+                return redirect('all_heroes')
+        elif 'create_user' in request.POST:
+            user_form = UserForm(request.POST)
+            if add_user(user_form):
+                if user_login(request, user_form):
+                    return redirect('all_heroes')
+        user_form = UserForm()
+        context = {
+            'title': 'Login',
+            'user_form': user_form,
+        }
+        return render(request, 'main/log_in.html', context)
+
+
+def log_out(request):
+    user_logout(request)
+    return redirect('all_heroes')

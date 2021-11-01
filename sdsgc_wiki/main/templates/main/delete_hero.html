@@ -1,7 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block title %}
-{{ hero.name }}
+{{ title }}
 {% endblock %}
 
 {% block body %}
@@ -32,12 +32,10 @@
             </div>
         </div>
         <p class="font-weight-normal text-right">Дата крайнего изменения: {{ hero.date_change }}</p>
-        <div class="row justify-content-end">
-            <form method="post">
-                {% csrf_token %}
-                <button type="submit" name="update_hero" class="btn btn-primary">Изменить героя</button>
-                <button type="submit" name="delete_hero" class="btn btn-danger">Удалить героя</button>
-            </form>
-        </div>
+        <h3 class="font-weight-normal">Вы уверены, что хотите удалить данного героя?</h3>
+        <form method="get">
+            <button type="submit" name="yes" class="btn btn-danger">Да, удалить</button>
+            <button type="submit" name="no" class="btn btn-primary">Нет, вернуться назад</button>
+        </form>
     </div>
 {% endblock %}
